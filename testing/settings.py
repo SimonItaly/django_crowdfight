@@ -130,5 +130,5 @@ MEDIA_URL = 'media/'
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 
-print('\x1b[6;30;42m' + ">>>> BASE_DIR = " + BASE_DIR + '\x1b[0m')
-print('\x1b[6;30;42m' + ">>>> STATIC_ROOT = " + STATIC_ROOT + '\x1b[0m')
+#print('\x1b[6;30;42m' + ">>>> BASE_DIR = " + BASE_DIR + '\x1b[0m')
+#print('\x1b[6;30;42m' + ">>>> STATIC_ROOT = " + STATIC_ROOT + '\x1b[0m')
