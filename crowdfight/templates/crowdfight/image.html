@@ -1,0 +1,91 @@
+
+{% extends 'crowdfight/base.html' %}
+
+{% load crowdfight_extras %}
+
+{% block title %} - {{ title }}{% endblock title %}
+
+{% block head %}
+	<script type="text/javascript">
+		function delete_image()
+		{
+			var del = window.confirm("Eliminare l'immagine?");
+			if(del)
+			{
+				document.cookie = "delete=" + {{image.img_idx}};
+				document.location.href = document.location.href;
+			}
+			return del;
+		}
+	</script>
+{% endblock head %}
+
+{% block content %}
+	<!-- Contents -->
+	<div id="content">
+
+		<!-- Results -->
+		<div id="results">
+			{% if image >= 0 %}
+				<p><h1>{{ title }}</h1></p>
+				<div id="none">
+					{% if votes != -1 %}
+						<p>
+							<table>
+								<tr>
+									<th rowspan="3">
+										<img id="kitten-vs" src="../../{{ image.upload.url }}">
+									</th>
+									
+									{% if votes %}
+										<th>
+											<h3>{{ image.real_name }}</h3>
+											<br/>
+											ha vinto {{ votes }} sfide recentemente
+										</th>
+									{% endif %}
+								</tr>
+
+								<tr>
+									<td>
+										<p>Sfide totali: {{ image.versus_total }}</p>
+										<p> </p>
+										<p>Vinte: {{ image.versus_won }} ({{ percent_won }}%)</p>
+										<p>Perse: {{ image.versus_lost }} ({{ percent_lost }}%)</p>
+										<p>Data di inserimento: {{ image.date_pub }}</p>
+										<p> </p>
+										<p>Caricata da <a href="/profile/{{ image.usr_idx }}">{{ image.usr_idx }}</a></p>
+									</td>
+								</tr>
+							</table>
+						</p>
+						<hr>
+
+						{% if image.usr_idx.id == user.id %}
+							<p>
+								Sei il proprietario di questa immagine
+								<form onReset="return delete_image()">
+									<input type="reset" value="Elimina">
+								</form>
+							</p>
+							<hr>
+						{% endif %}
+					{% else %}
+						<p>Nessun voto &egrave; stato ancora registrato.</p>
+					{% endif %}
+
+					<p><a href="/">Torna all'homepage</a></p>
+				</div>
+				<hr>
+			{% else %}
+				{% if deleted %}
+					<p>Hai eliminato l'immagine.</p>
+				{% else %}
+					<p>Hai seguito un link ad un'immagine non valido.</p>
+				{% endif %}
+				<p><a href="/">Torna all'homepage</a></p>
+			{% endif %}
+		</div>
+		
+	</div>
+{% endblock content %}

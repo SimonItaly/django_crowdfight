@@ -1,0 +1,99 @@
+
+{% extends 'crowdfight/base.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+	<script type="text/javascript">
+		// Process user choice.
+		function set_winner(won)
+		{
+			// Set cookie to store winner.
+			if (navigator.cookieEnabled || typeof(navigator.cookieEnabled) != "undefined")
+			{
+				document.cookie = "won=" + parseInt(won+1);
+			}
+			document.location.href = document.location.href;
+		}
+	</script>
+{% endblock head %}
+
+{% block content %}
+	<!-- Contents -->
+	<div id="content">
+
+		<!-- Results -->
+		<div id="results">
+			{% if cookie_won %}
+				{% if cookie_won == '1' %}
+					<p>Hai votato {{ old_img1.real_name }}</p>
+				{% else %}
+					<p>Hai votato {{ old_img2.real_name }}</p>
+				{% endif %}
+				
+				<a href="image/{{ old_img1.img_idx }}"><img id="mini-vs" src="{{ old_img1.upload.url }}" alt="{{ old_img1.real_name }}" title="{{ old_img1.real_name }}" border="0px"></a>
+				<a href="image/{{ old_img2.img_idx }}"><img id="mini-vs" src="{{ old_img2.upload.url }}" alt="{{ old_img2.real_name }}" title="{{ old_img2.real_name }}" border="0px"></a>
+				
+				{% comment "" %}
+				<p></p>
+				<p>{{ old_img1.real_name }} ha vinto {{ old_img1.versus_won }}/{{ old_img1.versus_total }} sfide in totale</p>
+				<p>{{ old_img2.real_name }} ha vinto {{ old_img2.versus_won }}/{{ old_img2.versus_total }} sfide in totale</p>
+				<p></p>
+				{% endcomment %}
+				<p>{{ old_img1.real_name }} ha vinto il {{ old_img1.pc_win }}% delle sfide e perso il restante {{ old_img1.pc_lost }}%</p>
+				<p>{{ old_img2.real_name }} ha vinto il {{ old_img2.pc_win }}% delle sfide e perso il restante {{ old_img2.pc_lost }}%</p>
+				<p></p>
+				<hr>
+			{% endif %}
+		</div>
+	
+		<!-- Versus title -->
+		<div id="versus">
+			{% if img1 and img2 %}
+				<strong id="versus">{{ img1.real_name }} vs {{ img2.real_name }}</strong>
+			{% endif %}
+		</div>
+	
+		<!-- Versus images -->
+		<div id="kittenwar">
+			<!-- Show first image -->
+			{% if img1 %}
+				{% if debug %}
+					<b>img1.upload.url</b> = {{ img1.upload.url }}<br>
+					<b>img1.upload.path</b> = {{ img1.upload.path }}<br>
+					<b>img1.real_name</b> = {{ img1.real_name }}<br>
+				{% endif %}
+				<a href="JavaScript: set_winner(0);"><img id="kitten-vs" src="{{ img1.upload.url }}" alt="{{ img1.real_name }}" title="{{ img1.real_name }}" border="0px"></a>
+			{% else %}
+				<!-- Placehold if it doesn't exist -->
+				<img id="kitten-vs" src="{% static 'crowdfight/images/placeholder.png' %}" alt="Image1" title="Image1" border="0px"></a>
+			{% endif %}
+
+			<!-- Show second image -->
+			{% if img2 %}
+				{% if debug %}
+					<b>img2.upload.url</b> = {{ img2.upload.url }}<br>
+					<b>img2.upload.path</b> = {{ img2.upload.path }}<br>
+					<b>img2.real_name</b> = {{ img2.real_name }}<br>
+				{% endif %}
+				<a href="JavaScript: set_winner(1);"><img id="kitten-vs" src="{{ img2.upload.url }}" alt="{{ img2.real_name }}" title="{{ img2.real_name }}" border="0px"></a>
+			{% else %}
+				<!-- Placehold if it doesn't exist -->
+				<img id="kitten-vs" src="{% static 'crowdfight/images/placeholder.png' %}" alt="Image2" title="Image2" border="0px"></a>
+			{% endif %}
+		</div>
+	</div>
+{% endblock content %}
+
+{% block footer %}
+	<hr><br/>
+	{% if debug %}
+		<h1>DEBUG is True</h1>
+	{% endif %}
+	<p>
+		Template from <a href="http://www.kittenwar.com">KittenWar.com</a><br>
+		Made with Django + Javascript snippets for<br>
+		<a href="http://www.unimore.it">UniMoRe</a> - <a href="https://weblab.ing.unimore.it/people/canali/teaching/ld.htm">Dynamic programming languages class</a>
+	</p>
+	<p>(Simone Bisi, 2017)</p>
+{% endblock footer %}

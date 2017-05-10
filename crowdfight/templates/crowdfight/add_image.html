@@ -1,0 +1,37 @@
+
+{% extends 'crowdfight/base.html' %}
+
+{% block title %}- Carica un'immagine{% endblock title %}
+
+{% block content %}
+	<!-- Contents -->
+	<div id="content">
+
+		<!-- Results -->
+		<div id="results">
+			
+			{% if image == -1 %}
+				<p>Quest'immagine è stata già caricata.</p>
+				<br />
+			{% elif image %}
+				<p>Immagine caricata con successo</p>
+				<p><a href="/image/{{ image.img_idx }}"><img id="mini-vs" src="/{{ image.upload.url }}" border="0px"></a></p>
+				<p><a href="/">Torna all'homepage</a></p>
+				<hr>
+			{% endif %}
+
+			{% if form %}
+				<form name="upload" method="post" action="/add_image" enctype="multipart/form-data">{% csrf_token %}
+					<table border="0">
+						{{ form.as_table }}
+					</table>
+					
+					<input type="submit" value="Carica" />
+				</form>
+			{% endif %}
+
+			<hr>
+		</div>
+
+	</div>
+{% endblock content %}

@@ -1,0 +1,61 @@
+
+{% extends 'crowdfight/base.html' %}
+
+{% load crowdfight_extras %}
+
+{% block title %}
+	{%if requested_user %}
+		- Profilo di {{ requested_user.get_username }}
+	{% else %}
+		- Profilo non trovato
+	{% endif %}
+{% endblock title %}
+
+{% block content %}
+	<!-- Contents -->
+	<div id="content">
+
+		<!-- Results -->
+		<div id="results">
+
+			{% if requested_user %}
+
+				{{ requested_user.get_username }}
+				{% if requested_user.is_staff or requested_user.is_superuser %}
+					(Staff)
+				{% endif %}
+				<hr>
+
+				<p>Ultimo accesso: {{ requested_user.last_login|date:"d F Y" }}</p>
+				<p>Registrato il: {{ requested_user.date_joined|date:"d F Y" }}</p>
+				<hr>
+
+				{% if requested_user.get_username == user.get_username %}
+					<p>{{ requested_user.email }}</p>
+					<hr>
+				{% endif %}
+
+				<p>Immagini caricate:</p>
+				{% if images %}
+						{% for image in images %}
+							{% cycle '<tr>' '' '' '' %}
+								<td>
+									<a href="/image/{{ image.img_idx }}"><img id="mini-vs" src="/{{ image.upload.url }}" border="0px"></a>
+								</td>
+							{% cycle '' '' '' '</tr>' %}
+						{% endfor %}
+					</table>
+				{% else %}
+					<p>Nessuna immagine caricata.</p>
+				{% endif %}	
+
+			{% else %}
+				<p>Hai seguito un link ad un utente non valido.</p>
+				<p><a href="/">Torna all'homepage</a></p>
+				<hr>
+			{% endif %}
+
+		</div>
+
+	</div>
+{% endblock content %}

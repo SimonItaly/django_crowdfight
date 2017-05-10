@@ -1,0 +1,37 @@
+
+{% extends 'crowdfight/base.html' %}
+
+{% block title %}- Login{% endblock title %}
+
+{% block head %}
+	{% if user.is_authenticated %}
+		<meta http-equiv="refresh" content="0; URL=/">
+	{% endif %}
+{% endblock head %}
+
+{% block content %}
+	<div id="content">
+
+		<div id="versus">
+			{% if user.is_authenticated %}
+				Redirect...
+			{% else %}
+				{% if form.errors %}
+					<p>L'username e la password inserite non coincidono, riprova.</p>
+				{% endif %}
+
+				<form method="post" action="/login">{% csrf_token %}
+					<table border="0">
+						<tr><th><label for="id_username">Username:</label></th><td>{{ form.username }}</td></tr>
+						<tr><th><label for="id_password">Password:</label></th><td>{{ form.password }}</td></tr>
+					</table>
+					<input type="submit" value="Login" />
+					<input type="hidden" name="next" value="/" />
+				</form>
+				<a href="/register">Registrati</a>
+				<hr>
+			{% endif %}
+		</div>
+		
+	</div>
+{% endblock content %}

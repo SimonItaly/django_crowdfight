@@ -1,0 +1,33 @@
+
+{% extends 'crowdfight/base.html' %}
+
+{% block title %}- Registrati{% endblock title %}
+
+{% block head %}
+	{% if user.is_authenticated %}
+		<meta http-equiv="refresh" content="0; URL=/">
+	{% endif %}
+{% endblock head %}
+
+{% block content %}
+	<!-- Contents -->
+	<div id="content">
+	
+		<!-- Versus title -->
+		<div id="versus">
+			{% if form %}
+				<form method="post" action="/register">
+					{% csrf_token %}
+					<table border="0">
+						{{ form.as_table }}
+					</table>
+					<input type="submit" value="Registrati" />
+				</form>
+			{% else %}
+				Errore durante la registrazione.
+			{% endif %}
+			<hr>
+		</div>
+
+	</div>
+{% endblock content %}

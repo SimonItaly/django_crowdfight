@@ -1,0 +1,65 @@
+
+{% extends 'crowdfight/base.html' %}
+
+<!-- Templatetags for "percent|get_by_index" -->
+{% load crowdfight_extras %}
+
+{% block title %} - {{ title }}{% endblock title %}
+
+{% block content %}
+	<!-- Contents -->
+	<div id="content">
+
+		<!-- Results -->
+		<div id="results">
+			<p><h1>{{ title }}</h1></p>
+
+			<p>
+				<form name="top_count" method="POST">
+					{% csrf_token %}
+					<select name="max_show" onchange="this.form.submit()">
+						<option selected hidden>Seleziona</option>
+						{% for n in img_range %}
+							<option value="{{ n }}">{{ n }}</option>
+						{% endfor %}
+					</select>
+				</form>
+			</p>
+
+			{% if images %}
+				{% for image in images %}
+					<p>
+						<table>
+							<tr>
+								<th rowspan="3">
+									<a href="image/{{ image.img_idx }}">
+										<image id="kitten-vs" src="{{ image.upload.url }}"></th>
+									</a>
+								<th>{{ forloop.counter }}</th>
+							</tr>
+							<tr>
+								<td>
+									<p>{{ image.real_name }}</p>
+								</td>
+							</tr>
+								<tr>
+									{% if percent_won %}
+										<td>Ha vinto il {{ percent_won|get_by_index:forloop.counter0 }}% di {{ image.versus_total }} sfide</td>
+									{% elif percent_lost %}
+										<td>Ha perso il {{ percent_lost|get_by_index:forloop.counter0 }}% di {{ image.versus_total }} sfide</td>
+									{% else %}
+										<td>Pubblicata: {{ image.date_pub }}</td>
+									{% endif %}
+								</tr>
+						</table>
+					</p>
+				{% endfor %}
+			{% else %}
+					<p>Nessun voto &egrave; stato ancora registrato.</p>
+					<p><a href="/">Torna all'homepage</a></p>
+			{% endif %}
+			<hr>
+		</div>
+		
+	</div>
+{% endblock content %}

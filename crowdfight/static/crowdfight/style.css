@@ -1,0 +1,208 @@
+
+BODY, TD {
+	font-family: sans-serif;
+}
+
+BODY {
+	background: #A4C3A4;
+	color: #77aa77;
+	margin: 0px;
+}
+
+#body {
+	max-width:728px;
+	margin:auto;
+	background:#ffffff;
+	padding:10px;
+}
+
+#header {
+	text-align:center;
+	width:100%;
+	padding-bottom:20px;
+}
+
+#wrapper {
+	padding-top:20px;
+	width:100%;
+	float:left;
+	border-top: dashed 1px;
+}
+
+#content {
+	max-width: 578px;
+	float: left;
+}
+
+#sidebar {
+	max-width: 150px;
+	float:right;
+	text-align:left;
+}
+
+#no-sidebar {
+	width:100%;
+	float:left;
+}
+
+#footer {
+	clear:both;
+	width:100%;
+	text-align:center;
+}
+
+#kittenwar {
+	text-align:center;
+}
+
+img#kitten-vs {
+	margin:10px;
+	max-width:250px;
+	max-height:250px;
+	border: solid 5px;
+}
+#results {
+	text-align:center;
+}
+
+img#mini-vs {
+	margin:2px;
+	max-width:100px;
+	max-height:100px;
+	border: solid 5px;
+}
+
+#versus  {
+	text-align:center;
+}
+
+#social {
+	text-align:center;
+}
+
+#footer {
+	padding:10px 0px;
+	background:#ffffff;
+}
+
+strong#versus {
+	font-size:2em;
+}
+
+#kittens UL{
+	width: 250px;
+	margin: 0px auto;
+	text-apgn:left;
+}
+
+#ul{
+	padding-left: 0px !important;
+}
+
+#results P {
+	margin: 0px auto;
+	padding: 4px 0px;
+	text-apgn: left;
+	font-weight: 700;
+}
+
+UL.kittenlist{
+	pst-style: none;
+}
+
+A, A:link, A:visited, A:active
+{
+	color: #77aa77;
+}
+
+.links p A:hover {
+	text-decoration: underline;
+}
+
+.links {
+	color: #77aa77;
+	margin: 0px auto;
+	padding: 3px;
+	text-apgn: left;
+}
+
+.links p {
+	margin: 0px;
+	padding: 0px;
+	pst-style: none;
+}
+
+.links p A,
+.links p A:link,
+.links p A:visited,
+.links p A:active
+{
+	color: #77aa77;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.links p A:hover {
+	text-decoration: underline;
+}
+
+p .spacer {
+	margin-bottom: 0.5em;
+	font-weight:bold;
+}
+
+FORM .row {
+	margin: 0;
+	padding-bottom: 5px;
+}
+
+FORM .row LABEL {
+	float: left;
+	width: 200px;
+	text-apgn: right;
+}
+
+FORM .subform {
+	margin: 5px;
+	padding: 5px;
+	border: 1px sopd #cccccc;
+}
+
+FORM .pic{
+	padding: 2px;
+	text-apgn: center;
+}
+
+FORM .pic A,
+FORM .pic A:link,
+FORM .pic A:hover,
+FORM .pic A:visited {
+	padding: 2px 5px;
+	font-family: monospace;
+	font-weight: bold;
+	border: 2px outset #0000ff;
+	text-decoration: none;
+}
+
+FORM .pic A:active {
+	border: 2px inset #0000ff;
+}
+
+FORM .pic IMG {
+	border: 1px sopd #77aa77;
+}
+
+FORM H3, FORM H4 {
+margin: 1em 0;
+}
+
+.error	{
+	display: block;
+	color: #ff0000;
+	font-weight: bold;
+}
+
+IMG.greenborder {
+	border: 1px sopd #77aa77;
+	margin-left: 10px;
+}

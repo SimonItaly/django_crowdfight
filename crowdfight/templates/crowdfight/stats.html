@@ -1,0 +1,134 @@
+
+{% extends 'crowdfight/base.html' %}
+
+{% block head %}
+<style type="text/css">
+	table { border-collapse: separate; border-spacing: 40px 25px; }
+	table { border: 1px solid black;  }
+	td, th { border:none; }
+</style>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+</script>
+
+<script type="text/javascript">
+	function isNumeric(n)
+	{
+		return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+	
+	function check_form(form)
+	{
+		var img_idx = document.grapher.img_idx.value;
+
+		if (!isNumeric(img_idx))
+		{
+			alert("Seleziona un'immagine");
+			document.grapher.img_idx.focus();
+		}
+		else
+		{
+			form.submit();
+		}
+	}
+</script>
+
+{% endblock head %}
+
+{% block title %}- Statistiche{% endblock title %}
+
+{% block content %}
+	<!-- Contents -->
+	<div id="content">
+
+		<!-- Best/worst images -->
+		<div id="results">
+			<p><h1>Le tue statistiche</h1></p>
+			
+			<div id="none">
+				<table>
+					<tr>
+						<th>Immagine più<br>vincente di sempre</th>
+						{% if best_image %}
+							<th>
+								<a href="image/{{ best_image.img_idx }}">
+									<img id="mini-vs" src="{{ best_image.upload.url }}">
+								</a>
+							</th>
+							<th>
+								<p>Vinte: {{ best_image.versus_won }} ({{ bi_pw }}%)</p>
+								<p>Perse: {{ best_image.versus_lost }} ({{ bi_pl }}%)</p>
+							</th>
+						{% else %}
+							<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+							<th><i>-</i></th>
+						{% endif %}
+					</tr>
+
+					<tr>
+						<th>Immagine più<br>perdente di sempre</th>
+						{% if worst_image %}
+							<th>
+								<a href="image/{{ worst_image.img_idx }}">
+									<img id="mini-vs" src="{{ worst_image.upload.url }}">
+								</a>
+							</th>
+							<th>
+								<p>Vinte: {{ worst_image.versus_won }} ({{ wi_pw }}%)</p>
+								<p>Perse: {{ worst_image.versus_lost }} ({{ wi_pl }}%)</p>
+							</th>
+						{% else%}
+							<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+							<th>-</th>
+						{% endif %}
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<!-- Advanced research -->
+		<div id="results">
+			<p><h1>Ricerca avanzata</h1></p>
+			<p>
+				<!-- Form for the graph generation -->
+				<form name="grapher" method="POST" onsubmit="return false;">
+					{% csrf_token %}
+					<!-- Date range start -->
+					<p>
+						Inizio: &nbsp;<input type="date" name="range_start">
+					</p>
+					<!-- Date range end -->
+					<p>
+						Fine: &nbsp;<input type="date" name="range_end">
+					</p>
+					<!-- Image idx -->
+					<p>
+						<select name="img_idx">
+							<option selected hidden>Seleziona</option>
+							{% for img in images %}
+								<option value="{{ img.img_idx }}">{{ img.real_name }}</option>
+							{% endfor %}
+						</select>
+					</p>
+					<!-- Submit -->
+					<p>
+						<input onClick="JavaScript: check_form(this.form);" type="submit" value="Cerca" />
+					</p>
+				</form>
+			</p>
+			<!-- Display the graph -->
+			<p>
+				{% if chart == -1 %}
+					Nessun risultato da mostrare nel periodo scelto.
+				{% elif chart == -2 %}
+					Seleziona un intervallo di date valido.
+				{% elif chart %}
+					{{ chart.as_html }}
+				{% endif %}
+			</p>
+		</div>
+
+	</div>
+{% endblock content %}

@@ -1,0 +1,65 @@
+
+{% extends 'crowdfight/base.html' %}
+
+<!-- Templatetags for "percent|get_by_index" -->
+{% load crowdfight_extras %}
+
+{% block title %} - Migliori immagini{% endblock title %}
+{% block content %}
+	<!-- Contents -->
+	<div id="content">
+
+		<!-- Results -->
+		<div id="results">
+
+			<p>
+				<form style="margin: 0; padding: 0;" method="POST">
+					{% csrf_token %}
+					<p>
+						Migliori risultati per
+						<input name="days" style="display: inline;" type="text"
+							{% if days %}
+								value="{{days}}"
+							{% endif %}/>
+						giorni &nbsp;
+						<input style="display: inline;" type="submit" value="Cerca" />
+					</p>
+				</form>
+			</p>
+			
+			<hr />
+
+			{% if days %}
+				{% if images %}
+					{% for image in images %}
+						<p>
+							<table>
+								<tr>
+									<th rowspan="3">
+										<a href="image/{{ image.img_idx }}">
+											<image id="kitten-vs" src="{{ image.upload.url }}"></th>
+										</a>
+									<th>Migliore immagine del<br>{{ image.date|date:"d F Y" }}</th>
+								</tr>
+								<tr>
+									<td>
+										<p>{{ image.real_name }}</p>
+									</td>
+								</tr>
+									<tr>
+										{% if percent_won %}
+											<td>Ha vinto il {{ percent_won|get_by_index:forloop.counter0 }}% di {{ image.versus_total }} sfide</td>
+										{% endif %}
+									</tr>
+							</table>
+						</p>
+					{% endfor %}
+					<hr>
+				{% else %}
+						<p>Nessun voto &egrave; stato registrato in {{ days }} giorni.</p>
+				{% endif %}
+			{% endif %}
+		</div>
+		
+	</div>
+{% endblock content %}

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+{% load staticfiles %}
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+
+		<link href="{% static 'crowdfight/style.css' %}" rel="stylesheet" type="text/css">
+
+		<title>Crowdfight {% block title %}{% endblock title %}</title>
+
+		{% block head %}
+		{% endblock head %}
+	</head>
+
+	<body>
+		<div id="body">
+
+			<!-- Header with image title -->
+			<div id="header">
+				<a href="/"><img src="{% static 'crowdfight/images/title.png' %}" alt="Crowdfight" title="Crowdfight" border="0"></a>
+			</div>
+
+			<div id="wrapper">
+
+				<!-- Contents -->
+				{% block content %}
+				{% endblock content %}
+
+				<!-- Menù -->
+				<div id="sidebar">
+					<div id="links">
+						<p class="spacer"><a href="/">Homepage</a></p>
+						<p class="spacer">&nbsp;</p>
+
+						{% if user.is_authenticated %}
+							<p class="spacer">Bentornato {{ user.get_username }}:</a></p>
+							<p class="spacer"><a href="/profile/{{ user.get_username }}">Il tuo profilo</a></p>
+							<p class="spacer"><a href="/add_image">Aggiungi immagine</a></p>
+							<p class="spacer"><a href="/stats">Statistiche</a></p>
+							<p class="spacer"><a href="/logout">Logout</a></p>
+						{% else %}
+							<p class="spacer"><a href="/login">Login</a></p>
+							<p class="spacer"><a href="/register">Registrati</a></p>
+						{% endif %}
+
+						<p class="spacer">&nbsp;</p>
+						<p class="spacer"><a href="/winners">Più vincenti</a></p>
+							<p class="spacer"><a href="/losers">Più perdenti</a></p>
+						<p class="spacer"><a href="/newest">Ultimi aggiunti</a></p>
+						<p class="spacer"><a href="/top_today">Top del giorno</a></p>
+						<p class="spacer"><a href="/top_month">Top del mese</a></p>
+						<p class="spacer"><a href="/top_days">Ricerca migliori</a></p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Footer -->
+			<div id="footer">
+				{% block footer %}
+				{% endblock footer %}
+			</div>
+		</div>
+	</body>
+</html>
