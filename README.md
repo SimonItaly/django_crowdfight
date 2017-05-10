@@ -87,6 +87,7 @@ In urls.py, add the following
 
 Migrate the database
 ```bash
+	python manage.py makemigrations crowdfight
 	python manage.py migrate
 ```
 
